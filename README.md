@@ -1,23 +1,30 @@
 # recettes
 
-[![Made with Fresh](https://usefresh.dev/fresh-badge-dark.svg)](https://usefresh.dev)
+Server-rendered recipe aggregator from multiple Belgian grocery providers, with
+support for multiple locales. Built with SolidStart and deployed to Cloudflare
+Workers.
 
-Server-rendered recipe aggregator from multiple Belgian
-grocery providers, with support for multiple locales.
+## Requirements
+
+- Node.js 24 or newer
+- pnpm
 
 ## Development
 
-Install [Deno](https://docs.deno.com/runtime/getting_started/installation), then
-run:
-
 ```bash
-deno task dev
+pnpm install
+pnpm dev
 ```
 
-Other useful commands:
+Useful commands:
 
 ```bash
-deno task check
-deno task build
-deno task start
+pnpm check
+pnpm build
+pnpm preview
+pnpm deploy
 ```
+
+`pnpm preview` builds the app and runs the production Worker locally with
+Wrangler. `pnpm deploy` builds and deploys it to Cloudflare Workers; authenticate
+with Cloudflare before deploying.

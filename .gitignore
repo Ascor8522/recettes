@@ -5,9 +5,12 @@
 .env.production.local
 .env.local
 
-# Fresh build directory
+# SolidStart and Vite build directories
+.output/
+dist/
+.wrangler/
 _fresh/
+vite.config.*.timestamp-*
 # npm + other dependencies
 node_modules/
 vendor/
-
