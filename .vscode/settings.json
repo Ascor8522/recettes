@@ -1,0 +1,10 @@
+{
+  "deno.enable": true,
+  "deno.lint": true,
+  "js/ts.validate.enabled": false,
+  "js/ts.experimental.useTsgo": false,
+  "editor.defaultFormatter": "denoland.vscode-deno",
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
+}
