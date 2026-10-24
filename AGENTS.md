@@ -2,38 +2,44 @@
 
 ## Project Overview
 
-This is a SolidStart application built with Solid, Vite, Tailwind CSS 4, and
+This is a TanStack Start application using Solid, Vite, Tailwind CSS 4, and
 pnpm. It aggregates server-rendered recipes from Belgian grocery providers and
 is deployed to Cloudflare Workers using the Cloudflare Vite plugin.
 
 ## Commands
 
-- `pnpm dev`: start the Vite/SolidStart development server.
+- `pnpm dev`: start the Vite/TanStack Start development server.
 - `pnpm check`: run Oxlint, Oxfmt formatting checks, and TypeScript checking.
 - `pnpm build`: create the production build for Cloudflare Workers.
-- `pnpm preview`: build and run the production Worker locally with Wrangler.
+- `pnpm preview`: preview the production build locally with Vite.
 - `pnpm deploy`: build and deploy with Wrangler.
 - `pnpm format`: format the source and project config with Oxfmt.
 
 ## Repository Layout
 
-- `src/app.tsx`: Solid Router setup and shared page shell.
-- `src/entry-client.tsx` and `src/entry-server.tsx`: SolidStart entry points.
-- `src/routes/`: filesystem routes for `/`, `/search`, `/providers`, and the
-  `/api/search` JSON endpoint.
+- `src/router.tsx`: TanStack Router setup, per-request QueryClient, and generated
+  route tree registration.
+- `src/routes/__root.tsx`: document shell, shared layout, and locale handling.
+- `src/routes/`: file routes for `/`, `/search`, and `/providers`.
 - `src/components/`: reusable Solid components, including the interactive
   language and theme controls.
 - `src/models/recipe/`: recipe types, provider metadata, and provider
   implementations.
-- `src/utils/`: shared route typing and locale handling.
+- `src/utils/`: locale handling and validated TanStack server functions.
 - `src/locales/`: translation JSON files for French, Dutch, German, and English.
 - `public/`: public assets served at the site root.
-- `vite.config.ts`: SolidStart, Cloudflare, and Tailwind Vite plugin setup.
+- `vite.config.ts`: TanStack Start, Solid, Cloudflare, and Tailwind Vite plugins.
 - `wrangler.jsonc`: Cloudflare Worker configuration.
 
 The `@/` import alias resolves to `src/`. Follow the existing TypeScript/TSX
 style. Keep server-only provider fetching in route/server code and keep
 interactive browser state in Solid components.
+
+Recipe search uses TanStack Solid Query infinite queries. The first page is
+rendered during SSR; subsequent pages are fetched and appended on demand.
+
+TanStack Start generates `src/routeTree.gen.ts` from the file routes. Do not
+manually edit this generated route tree.
 
 ## Recipe Providers
 
@@ -67,3 +73,9 @@ then the request `Accept-Language` header, and finally English.
 Do not edit generated output in `dist/` or installed dependencies in
 `node_modules/`. Keep secrets out of the repository; local `.env` variants are
 ignored by Git.
+
+## Development Guidelines
+
+- Do not spin up a dev server
+- Do not make calls (e.g. curl) to the app to validate the feature
+- Do not spin up headless browsers for testing

@@ -2,7 +2,6 @@ import de from "../locales/de.json" with { type: "json" };
 import en from "../locales/en.json" with { type: "json" };
 import fr from "../locales/fr.json" with { type: "json" };
 import nl from "../locales/nl.json" with { type: "json" };
-import { getRequestEvent } from "solid-js/web";
 
 interface Translations {
   localeName: string;
@@ -42,34 +41,21 @@ export const translations = {
   en,
 } satisfies Record<string, Translations>;
 
-export const supportedLocales = Object.keys(translations);
+export const supportedLocales = Object.keys(translations) as Locale[];
 
 export type Locale = keyof typeof translations;
 
-export function getLocale(request: Request): Locale {
+export function resolveLocale(langParam: string | undefined, acceptHeader: string | null): Locale {
   const defaultLang = "en";
-  const langParam = new URL(request.url).searchParams.get("lang");
-  const acceptHeader = request.headers.get("accept-language")?.replace("*", defaultLang);
 
   return (
-    (langParam ?? acceptHeader ?? defaultLang)
+    (langParam ?? acceptHeader?.replace("*", defaultLang) ?? defaultLang)
       .split(",")
       .map((part) => part.split(";q="))
       .map(([lang, q]) => [lang, q ? Number(q) : 1] as const)
       .sort(([, a], [, b]) => b - a)
-      .filter((t): t is [Locale, number] => supportedLocales.includes(t[0]))
+      .filter((t): t is [Locale, number] => supportedLocales.includes(t[0] as Locale))
       .map(([lang]) => lang)
       .shift() ?? defaultLang
   );
-}
-
-export function getCurrentLocale(): Locale {
-  return getLocale(new Request(getCurrentUrl()));
-}
-
-export function getCurrentUrl(): URL {
-  const request = getRequestEvent()?.request;
-  if (request) return new URL(request.url);
-  if (typeof window !== "undefined") return new URL(window.location.href);
-  return new URL("http://localhost");
 }

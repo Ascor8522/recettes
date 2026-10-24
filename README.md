@@ -1,8 +1,8 @@
 # recettes
 
 Server-rendered recipe aggregator from multiple Belgian grocery providers, with
-support for multiple locales. Built with SolidStart and deployed to Cloudflare
-Workers.
+support for multiple locales. Built with TanStack Start and Solid, and deployed
+to Cloudflare Workers.
 
 ## Requirements
 
@@ -25,6 +25,6 @@ pnpm preview
 pnpm deploy
 ```
 
-`pnpm preview` builds the app and runs the production Worker locally with
-Wrangler. `pnpm deploy` builds and deploys it to Cloudflare Workers; authenticate
-with Cloudflare before deploying.
+`pnpm preview` previews the production build locally. `pnpm deploy` builds and
+deploys it to Cloudflare Workers with Wrangler; authenticate with Cloudflare
+before deploying.

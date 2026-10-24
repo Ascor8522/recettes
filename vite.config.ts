@@ -1,8 +1,9 @@
 import { cloudflare } from "@cloudflare/vite-plugin";
-import { solidStart } from "@solidjs/start/config";
 import tailwindcss from "@tailwindcss/vite";
+import { tanstackStart } from "@tanstack/solid-start/plugin/vite";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
+import viteSolid from "vite-plugin-solid";
 
 export default defineConfig({
   resolve: {
@@ -10,5 +11,10 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
-  plugins: [cloudflare({ viteEnvironment: { name: "ssr" } }), solidStart(), tailwindcss()],
+  plugins: [
+    tailwindcss(),
+    cloudflare({ viteEnvironment: { name: "ssr" } }),
+    tanstackStart(),
+    viteSolid({ ssr: true }),
+  ],
 });

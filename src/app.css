@@ -1,7 +1,12 @@
 @import "tailwindcss";
-@import "./assets/view-transitions.css";
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+::view-transition-old(page-title),
+::view-transition-new(page-title) {
+  animation-duration: 220ms;
+  animation-timing-function: ease-out;
+}
 
 * {
   transition:

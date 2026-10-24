@@ -14,3 +14,4 @@ vite.config.*.timestamp-*
 # npm + other dependencies
 node_modules/
 vendor/
+.tanstack/

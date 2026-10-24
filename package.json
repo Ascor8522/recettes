@@ -4,27 +4,28 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build",
-    "preview": "pnpm build && wrangler dev --config dist/server/wrangler.json",
+    "build": "vite build && tsc --noEmit",
+    "preview": "vite preview",
     "deploy": "pnpm build && wrangler deploy",
-    "check": "oxlint src vite.config.ts && oxfmt --check src vite.config.ts package.json tsconfig.json wrangler.jsonc pnpm-workspace.yaml README.md AGENTS.md .vscode && tsc --noEmit",
-    "format": "oxfmt --write src vite.config.ts package.json tsconfig.json wrangler.jsonc pnpm-workspace.yaml README.md AGENTS.md .vscode"
+    "check": "oxlint --ignore-pattern=src/routeTree.gen.ts src vite.config.ts && oxfmt --check --ignore-path .oxfmtignore src vite.config.ts package.json tsconfig.json wrangler.jsonc pnpm-workspace.yaml README.md AGENTS.md .vscode && tsc --noEmit",
+    "format": "oxfmt --write --ignore-path .oxfmtignore src vite.config.ts package.json tsconfig.json wrangler.jsonc pnpm-workspace.yaml README.md AGENTS.md .vscode"
   },
   "dependencies": {
-    "@solidjs/meta": "^0.29.4",
-    "@solidjs/router": "^1.0.0",
-    "@solidjs/start": "^2.0.6",
-    "solid-js": "^1.9.14"
+    "@tanstack/solid-query": "^5.104.5",
+    "@tanstack/solid-router": "^1.170.42",
+    "@tanstack/solid-start": "^1.169.3",
+    "solid-js": "^1.9.17"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.64.0",
     "@tailwindcss/vite": "^4.3.3",
-    "@types/node": "^24.10.2",
+    "@types/node": "^24.19.2",
     "oxfmt": "^0.74.0",
     "oxlint": "^1.89.0",
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2",
     "vite": "^8.3.5",
+    "vite-plugin-solid": "^2.11.14",
     "wrangler": "^4.151.3"
   },
   "engines": {

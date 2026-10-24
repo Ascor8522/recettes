@@ -1,5 +1,0 @@
-::view-transition-old(page-title),
-::view-transition-new(page-title) {
-  animation-duration: 220ms;
-  animation-timing-function: ease-out;
-}

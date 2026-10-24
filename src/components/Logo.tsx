@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/solid-router";
 import type { Locale } from "@/utils/locales.ts";
 import { translations } from "@/utils/locales.ts";
 
@@ -6,17 +7,18 @@ export interface LogoProps {
   locale: Locale;
 }
 
-export function Logo({ className = "", locale }: LogoProps) {
+export function Logo(props: LogoProps) {
   return (
-    <a
-      class={`text-[1.18rem] font-bold tracking-[-.04em] ${className}`}
-      href="/"
-      aria-label={`recettes — ${translations[locale].home}`}
+    <Link
+      class={`text-[1.18rem] font-bold tracking-[-.04em] ${props.className ?? ""}`}
+      to="/"
+      search={(previous) => ({ ...previous, lang: props.locale })}
+      aria-label={`recettes — ${translations[props.locale].home}`}
     >
       recettes
       <span class="text-gray-500 dark:text-gray-400" aria-hidden="true">
         .
       </span>
-    </a>
+    </Link>
   );
 }
