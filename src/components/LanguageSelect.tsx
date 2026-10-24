@@ -30,7 +30,9 @@ export function LanguageSelect(props: LanguageSelectProps) {
       >
         <For each={supportedLocales}>
           {(supportedLocale) => (
-            <option value={supportedLocale}>{translations[supportedLocale].localeName}</option>
+            <option value={supportedLocale} selected={supportedLocale === props.locale}>
+              {translations[supportedLocale].localeName}
+            </option>
           )}
         </For>
       </select>
